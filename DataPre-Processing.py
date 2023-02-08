@@ -1,46 +1,50 @@
 import csv
 import os
-import Calculations as CLC
-import matplotlib.pyplot as plt
+
 import scipy.signal
 
-
+import Calculations as CLC
 
 ###################################################################
 ########### Determine Which folder to get data from  ##############
 ###################################################################
-#Source Folder to import Data from
+# Source Folder to import Data from
 MainSourceFolder = r"D:\Work\Masters\Thesis\Third trial\Data Collected\\"
-MainSubfolder   = "Third Collection"
+MainSubfolder = "Third Collection"
 DataCategory = ["Fully", "Partially", "No movement"]
-SampleNumber = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven", "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty", "Twentyone", "TwentyTwo", "TwentyThree"]
+SampleNumber = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven",
+                "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty",
+                "Twentyone", "TwentyTwo", "TwentyThree"]
 
-#Fully = 0, partially =1, No movement =2
+# Fully = 0, partially =1, No movement =2
 DataCategoryIndex = 2
 SampleNumberIndex = 4
 
-KinectDataSource        = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex] + '\\' + "KinectHandsData.csv"
-AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex] + '\\' + "accelerometer.csv"
+KinectDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[
+    SampleNumberIndex] + '\\' + "KinectHandsData.csv"
+AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + \
+                          SampleNumber[SampleNumberIndex] + '\\' + "accelerometer.csv"
 
 print('Processing Data from folder:')
-print(MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex])
+print(
+    MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex])
 ###################################################################
 ######## Import Data from CSV to String Arrays    #################
 ###################################################################
 # Open FIles
-KinectData = csv.reader(open(KinectDataSource),  delimiter=",")
-AccelerometerData = csv.reader(open(AccelerometerDataSource),  delimiter=",")
+KinectData = csv.reader(open(KinectDataSource), delimiter=",")
+AccelerometerData = csv.reader(open(AccelerometerDataSource), delimiter=",")
 
-#Create arrays to import data into
+# Create arrays to import data into
 NumberOfArrays = 23
 i = 1
 for i in range(NumberOfArrays + 1):
     globals()["column" + str(i)] = []
 
-#Skip First row
+# Skip First row
 next(KinectData)
 
-#Data import
+# Data import
 for Column in KinectData:
     column1.append(Column[0])
     column2.append(Column[1])
@@ -51,28 +55,25 @@ for Column in KinectData:
     column7.append(Column[6])
     column8.append(Column[7])
     column9.append(Column[8])
-    column10.append(Column[9])
-    column11.append(Column[10])
-    column12.append(Column[11])
-    column13.append(Column[12])
-    column18.append(Column[13])
-    column19.append(Column[14])
-    column20.append(Column[15])
-    column21.append(Column[16])
-    column22.append(Column[17])
-    column23.append(Column[18])
+    column1.append(Column[9])
+    column1.append(Column[10])
+    column1.append(Column[11])
+    column1.append(Column[12])
+    column1.append(Column[13])
+    column1.append(Column[14])
+    column2.append(Column[15])
+    column2.append(Column[16])
+    column2.append(Column[17])
+    column2.append(Column[18])
 
-#Skip First row
+# Skip First row
 next(AccelerometerData)
 
 for Column in AccelerometerData:
-    column14.append(Column[0])
-    column15.append(Column[1])
-    column16.append(Column[2])
-    column17.append(Column[3])
-
-
-
+    column1.append(Column[0])
+    column1.append(Column[1])
+    column1.append(Column[2])
+    column1.append(Column[3])
 
 ###################################################################
 #########     Convert String Arrays to Double   ###################
@@ -88,21 +89,20 @@ RSY = CLC.ConvertStrArrayToDouble(column6)
 RSZ = CLC.ConvertStrArrayToDouble(column7)
 REX = CLC.ConvertStrArrayToDouble(column8)
 REY = CLC.ConvertStrArrayToDouble(column9)
-REZ = CLC.ConvertStrArrayToDouble(column10)
-RWX = CLC.ConvertStrArrayToDouble(column11)
-RWY = CLC.ConvertStrArrayToDouble(column12)
-RWZ = CLC.ConvertStrArrayToDouble(column13)
-LSX = CLC.ConvertStrArrayToDouble(column18)
-LSY = CLC.ConvertStrArrayToDouble(column19)
-LSZ = CLC.ConvertStrArrayToDouble(column20)
-SCX = CLC.ConvertStrArrayToDouble(column21)
-SCY = CLC.ConvertStrArrayToDouble(column22)
-SCZ = CLC.ConvertStrArrayToDouble(column23)
+REZ = CLC.ConvertStrArrayToDouble(column1)
+RWX = CLC.ConvertStrArrayToDouble(column1)
+RWY = CLC.ConvertStrArrayToDouble(column1)
+RWZ = CLC.ConvertStrArrayToDouble(column1)
+LSX = CLC.ConvertStrArrayToDouble(column1)
+LSY = CLC.ConvertStrArrayToDouble(column1)
+LSZ = CLC.ConvertStrArrayToDouble(column2)
+SCX = CLC.ConvertStrArrayToDouble(column2)
+SCY = CLC.ConvertStrArrayToDouble(column2)
+SCZ = CLC.ConvertStrArrayToDouble(column2)
 
-AccX = CLC.ConvertStrArrayToDouble(column15)
-AccY = CLC.ConvertStrArrayToDouble(column16)
-AccZ = CLC.ConvertStrArrayToDouble(column17)
-
+AccX = CLC.ConvertStrArrayToDouble(column1)
+AccY = CLC.ConvertStrArrayToDouble(column1)
+AccZ = CLC.ConvertStrArrayToDouble(column1)
 
 ###################################################################
 ###############   Signals pre-processing   ########################
@@ -154,10 +154,9 @@ SCX = scipy.signal.medfilt(SCX, MedianFilterWindow)
 SCY = scipy.signal.medfilt(SCY, MedianFilterWindow)
 SCZ = scipy.signal.medfilt(SCZ, MedianFilterWindow)
 
-
-AccX = scipy.signal.medfilt(AccX,MedianFilterWindow)
-AccY = scipy.signal.medfilt(AccY,MedianFilterWindow)
-AccZ = scipy.signal.medfilt(AccZ,MedianFilterWindow)
+AccX = scipy.signal.medfilt(AccX, MedianFilterWindow)
+AccY = scipy.signal.medfilt(AccY, MedianFilterWindow)
+AccZ = scipy.signal.medfilt(AccZ, MedianFilterWindow)
 
 # plt.title('Acceleration in Z-axis Postprocessing')
 # plt.xlabel('Frames')
@@ -165,8 +164,6 @@ AccZ = scipy.signal.medfilt(AccZ,MedianFilterWindow)
 # # print(RHX)
 # plt.plot(AccX)
 # plt.show()
-
-
 
 
 ###################################################################
@@ -188,7 +185,7 @@ MeanValueRSX = CLC.CalculateMeanValue(RSX)
 ROMRSY = CLC.CalcROM(RSY)
 MeanValueRSY = CLC.CalculateMeanValue(RSY)
 
-ROMRSZ = CLC.CalcROM(RSZ )
+ROMRSZ = CLC.CalcROM(RSZ)
 MeanValueRSZ = CLC.CalculateMeanValue(RSZ)
 
 ROMREX = CLC.CalcROM(REX)
@@ -197,16 +194,16 @@ MeanValueREX = CLC.CalculateMeanValue(REX)
 ROMREY = CLC.CalcROM(REY)
 MeanValueREY = CLC.CalculateMeanValue(REY)
 
-ROMREZ = CLC.CalcROM(REZ )
+ROMREZ = CLC.CalcROM(REZ)
 MeanValueREZ = CLC.CalculateMeanValue(REZ)
 
-ROMRWX = CLC.CalcROM(RWX )
+ROMRWX = CLC.CalcROM(RWX)
 MeanValueRWX = CLC.CalculateMeanValue(RWX)
 
-ROMRWY = CLC.CalcROM(RWY )
+ROMRWY = CLC.CalcROM(RWY)
 MeanValueRWY = CLC.CalculateMeanValue(RWY)
 
-ROMRWZ = CLC.CalcROM(RWZ )
+ROMRWZ = CLC.CalcROM(RWZ)
 MeanValueRWZ = CLC.CalculateMeanValue(RWZ)
 
 ROMLSX = CLC.CalcROM(LSX)
@@ -227,49 +224,41 @@ MeanValueSCY = CLC.CalculateMeanValue(SCY)
 ROMSCZ = CLC.CalcROM(SCZ)
 MeanValueSCZ = CLC.CalculateMeanValue(SCZ)
 
-
-
-
 MaxAccX = CLC.FindMax(AccX)
 ROMAccX = CLC.CalcROM(AccX)
 OscAccX = CLC.CalculateOscilliations(AccX)
-
 
 MaxAccY = CLC.FindMax(AccY)
 ROMAccY = CLC.CalcROM(AccY)
 OscAccY = CLC.CalculateOscilliations(AccY)
 
-
 MaxAccZ = CLC.FindMax(AccZ)
 ROMAccZ = CLC.CalcROM(AccZ)
 OscAccZ = CLC.CalculateOscilliations(AccZ)
 
-
-#Calculate Time
+# Calculate Time
 TimeOfMovement = CLC.CalculateTimeOfMovement(TimeStamp)
-print (TimeOfMovement)
+print(TimeOfMovement)
 
 ###################################################################
 ##############   Writing Features To CSV File   ###################
 ###################################################################
-headerKinect = ['ROMRHX', 'ROMRHY', 'ROMRHZ', 'ROMRSX', 'ROMRSY', 'ROMRSZ', 'ROMREX', 'ROMREY', 'ROMREZ', 'ROMRWX', 'ROMRWY', 'ROMRWZ', 'ROMLSX', 'ROMLSY', 'ROMLSZ', 'ROMSCX', 'ROMSCY', 'ROMSCZ', 'MovementTime']
-valuesKinect = [ROMRHX, ROMRHY, ROMRHZ, ROMRSX, ROMRSY, ROMRSZ, ROMREX, ROMREY, ROMREZ, ROMRWX, ROMRWY, ROMRWZ, ROMLSX, ROMLSY, ROMLSZ, ROMSCX, ROMSCY, ROMSCZ, TimeOfMovement]
+headerKinect = ['ROMRHX', 'ROMRHY', 'ROMRHZ', 'ROMRSX', 'ROMRSY', 'ROMRSZ', 'ROMREX', 'ROMREY', 'ROMREZ', 'ROMRWX',
+                'ROMRWY', 'ROMRWZ', 'ROMLSX', 'ROMLSY', 'ROMLSZ', 'ROMSCX', 'ROMSCY', 'ROMSCZ', 'MovementTime']
+valuesKinect = [ROMRHX, ROMRHY, ROMRHZ, ROMRSX, ROMRSY, ROMRSZ, ROMREX, ROMREY, ROMREZ, ROMRWX, ROMRWY, ROMRWZ, ROMLSX,
+                ROMLSY, ROMLSZ, ROMSCX, ROMSCY, ROMSCZ, TimeOfMovement]
 
-headerAcc =['MaxAccX', 'OscAccX', 'MaxAccY', 'OscAccY', 'MaxAccZ', 'OscAccZ']
+headerAcc = ['MaxAccX', 'OscAccX', 'MaxAccY', 'OscAccY', 'MaxAccZ', 'OscAccZ']
 valuesAcc = [MaxAccX, OscAccX, MaxAccY, OscAccY, MaxAccZ, OscAccZ]
 
 MotionScore = ['ScoreOfMotion']
 ScoreOfMotion = 1
 
-#Create an empty string list to append header's and values to
+# Create an empty string list to append header's and values to
 header = []
 values = []
 
-
-
-
-
-#Append Headers to one empty list 'header'
+# Append Headers to one empty list 'header'
 for item in headerKinect:
     header.append(item)
 for item in headerAcc:
@@ -277,20 +266,16 @@ for item in headerAcc:
 # for item in MotionScore:
 #     header.append(item)
 
-#Append Values to one empty list 'values'
+# Append Values to one empty list 'values'
 for item in valuesKinect:
     values.append(item)
 for item in valuesAcc:
     values.append(item)
-#values.append(ScoreOfMotion)
-
-
+# values.append(ScoreOfMotion)
 
 
 # check if file already exists
 IsFileFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted.csv")
-
-
 
 # write to CSV file
 f = open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted.csv", 'a', newline='')

@@ -1,21 +1,17 @@
 import csv
 
+from numpy import genfromtxt
 from sklearn.svm import OneClassSVM
-from numpy import genfromtxt, where, quantile
-import matplotlib.pyplot as plt
-import Calculations as CLC
 
-
-
-
-TrainData   = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\ResampledData.csv", skip_header=1, delimiter=',')
-TestData    = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TestData.csv", skip_header=1, delimiter=',')
+TrainData = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\ResampledData.csv", skip_header=1,
+                       delimiter=',')
+TestData = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TestData.csv",
+                      skip_header=1, delimiter=',')
 # print(TrainData)
 
-svm = OneClassSVM(kernel='rbf', degree= 3, gamma='scale', nu=0.2)
-print(svm,"\n")
+svm = OneClassSVM(kernel='rbf', degree=3, gamma='scale', nu=0.2)
+print(svm, "\n")
 svm.fit(TrainData)
-
 
 pred = svm.predict(TestData)
 scores = svm.score_samples(TestData)
@@ -27,18 +23,14 @@ scores = svm.score_samples(TestData)
 
 i = 1
 for item in scores:
-    print("\n Sample" , i, "Score is ", item, end = " ")
+    print("\n Sample", i, "Score is ", item, end=" ")
     i = i + 1
-
 
 f = open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Results.csv", 'a', newline='')
 writer = csv.writer(f)
 # writer.writerow(header)
 writer.writerow(scores)
 f.close()
-
-
-
 
 # j = 1
 # for item in scores:
@@ -61,7 +53,6 @@ f.close()
 #         print(j, end =", ")
 
 
-
 # thresh = quantile(scores, 0.03)
 # print("\n Threshold is \n ",thresh)
 
@@ -71,6 +62,6 @@ f.close()
 # for item in anom_index:
 #     print("\n Outlined samples are samples number\n", item)
 
-#plt.scatter(x[:,0], x[:,1])
-#plt.scatter(values[:,0], values[:,1], color='r')
-#plt.show()
+# plt.scatter(x[:,0], x[:,1])
+# plt.scatter(values[:,0], values[:,1], color='r')
+# plt.show()

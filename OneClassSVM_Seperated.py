@@ -1,15 +1,9 @@
-import csv
+from numpy import genfromtxt
 
-from sklearn.svm import OneClassSVM
-from numpy import genfromtxt, where, quantile
-import matplotlib.pyplot as plt
-import Calculations as CLC
-
-
-
-
-TrainData   = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TrainData.csv", skip_header=1, delimiter=',')
-TestData    = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TestData.csv", skip_header=1, delimiter=',')
+TrainData = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TrainData.csv",
+                       skip_header=1, delimiter=',')
+TestData = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TestData.csv",
+                      skip_header=1, delimiter=',')
 print(TrainData)
 
 # svm = OneClassSVM(kernel='rbf', degree= 3, gamma='scale', nu=0.2)
@@ -39,7 +33,6 @@ print(TrainData)
 #
 
 
-
 # j = 1
 # for item in scores:
 #     print ("\n Sample Number",j)
@@ -61,7 +54,6 @@ print(TrainData)
 #         print(j, end =", ")
 
 
-
 # thresh = quantile(scores, 0.03)
 # print("\n Threshold is \n ",thresh)
 
@@ -71,6 +63,6 @@ print(TrainData)
 # for item in anom_index:
 #     print("\n Outlined samples are samples number\n", item)
 
-#plt.scatter(x[:,0], x[:,1])
-#plt.scatter(values[:,0], values[:,1], color='r')
-#plt.show()
+# plt.scatter(x[:,0], x[:,1])
+# plt.scatter(values[:,0], values[:,1], color='r')
+# plt.show()

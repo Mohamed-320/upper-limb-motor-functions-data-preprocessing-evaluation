@@ -1,32 +1,36 @@
 import csv
 import os
-import Calculations as CLC
-import matplotlib.pyplot as plt
+
 import scipy.signal
+
+import Calculations as CLC
 
 ###################################################################
 ########### Determine Which folder to get data from  ##############
 ###################################################################
-#Source Folder to import Data from
+# Source Folder to import Data from
 MainSourceFolder = r"D:\Work\Masters\Thesis\Third trial\Data Collected\\"
-MainSubfolder   = "Third Collection"
+MainSubfolder = "Third Collection"
 DataCategory = ["Fully", "Partially", "No movement"]
-SampleNumber = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven", "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty", "Twentyone", "TwentyTwo", "TwentyThree"]
+SampleNumber = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven",
+                "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty",
+                "Twentyone", "TwentyTwo", "TwentyThree"]
 
-#Fully = 0, partially =1, No movement =2
+# Fully = 0, partially =1, No movement =2
 DataCategoryIndex = 0
 SampleNumberIndex = 0
 
-KinectDataSource        = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex] + '\\' + "KinectHandsData.csv"
-AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex] + '\\' + "accelerometer.csv"
-
+KinectDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[
+    SampleNumberIndex] + '\\' + "KinectHandsData.csv"
+AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + \
+                          SampleNumber[SampleNumberIndex] + '\\' + "accelerometer.csv"
 
 ###################################################################
 ######## Import Data from CSV to String Arrays    #################
 ###################################################################
 # Open FIles
-KinectData = csv.reader(open(KinectDataSource),  delimiter=",")
-AccelerometerData = csv.reader(open(AccelerometerDataSource),  delimiter=",")
+KinectData = csv.reader(open(KinectDataSource), delimiter=",")
+AccelerometerData = csv.reader(open(AccelerometerDataSource), delimiter=",")
 
 # Create arrays to import data into
 NumberOfArrays = 23
@@ -230,7 +234,6 @@ OscAccZ = CLC.CalculateOscilliations(AccZ)
 # Calculate Time
 TimeOfMovement = CLC.CalculateTimeOfMovement(TimeStamp)
 
-
 ###################################################################
 ##############   Writing Features To CSV File   ###################
 ###################################################################
@@ -247,8 +250,6 @@ valuesSmoothness = [MaxAccX, OscAccX, MaxAccY, OscAccY, MaxAccZ, OscAccZ]
 headerTime = ['TimeOfMovement']
 valuesTime = [TimeOfMovement]
 
-
-
 # check if file already exists
 IsROMFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\RangeOfMotion.csv")
 
@@ -262,7 +263,6 @@ if not IsROMFound:
 writer.writerow(valuesROM)
 f.close()
 
-
 IsCompensationFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Compensation.csv")
 
 # write to CSV file
@@ -275,7 +275,6 @@ if not IsCompensationFound:
 writer.writerow(valuesCompensation)
 f.close()
 
-
 IsSmoothnessFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Smoothness.csv")
 
 # write to CSV file
@@ -287,7 +286,6 @@ if not IsSmoothnessFound:
 
 writer.writerow(valuesSmoothness)
 f.close()
-
 
 IsTimeFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\TimeOfMovement.csv")
 
