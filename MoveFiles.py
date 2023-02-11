@@ -1,8 +1,8 @@
 import os
 import shutil
 
-SourcePath = r"D:\Work\Masters\Thesis\Third trial\Code\DataCollection\KinectProject\\"
-DestinationPath = r"D:\Work\Masters\Thesis\Third trial\Data Collected\Fourth Collection\Fully\\"
+SourcePath = r"H:\zizo-thesis\upper-limb-motor-functions-data-collection\KinectProject\\"
+DestinationPath = r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataCollected\\"
 
 FilesNames = ["accelerometer.csv", "emg.csv", "gyro.csv", "KinectHandsData.csv", "orientation.csv",
               "orientationEuler.csv"]

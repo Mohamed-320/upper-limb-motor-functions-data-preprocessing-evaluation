@@ -11,8 +11,9 @@ NumberOfSamplesToBeGenerated = 100
 ####################################################################################################
 ############################# Import Data To be resampled ##########################################
 ####################################################################################################
-TrainData = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TrainData.csv",
-                       skip_header=1, delimiter=',')
+TrainData = genfromtxt(
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted_TrainData.csv",
+    skip_header=1, delimiter=',')
 X, y = make_classification(n_samples=NumberOfSamplesToBeGenerated, n_features=25, n_redundant=0, n_clusters_per_class=1,
                            weights=[1], flip_y=0, random_state=1, shuffle=False, scale=0)
 
@@ -62,6 +63,8 @@ for item in X_resampled:
 print('\nNumber of items in Resampled Data is:', i)
 
 # print(y)
-savetxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Resampled.csv", X_resampled, delimiter=",")
-savetxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\Concatenated.csv", ConcatenatedData, delimiter=",")
+savetxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\Resampled.csv",
+        X_resampled, delimiter=",")
+savetxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\Concatenated.csv",
+        ConcatenatedData, delimiter=",")
 # print(y)
