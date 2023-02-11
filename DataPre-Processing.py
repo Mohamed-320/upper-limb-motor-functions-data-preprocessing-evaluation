@@ -9,29 +9,29 @@ import Calculations as CLC
 ########### Determine Which folder to get data from  ##############
 ###################################################################
 # Source Folder to import Data from
-MainSourceFolder = r"D:\Work\Masters\Thesis\Third trial\Data Collected\\"
-MainSubfolder = "Third Collection"
+MainSourceFolder = r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataCollected\\"
+MainSubfolder = "First"
 DataCategory = ["Fully", "Partially", "No movement"]
 SampleNumber = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven",
                 "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty",
                 "Twentyone", "TwentyTwo", "TwentyThree"]
 
 # Fully = 0, partially =1, No movement =2
-DataCategoryIndex = 2
-SampleNumberIndex = 4
+DataCategoryIndex = 0
+SampleNumberIndex = 0
 
-KinectDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[
-    SampleNumberIndex] + '\\' + "KinectHandsData.csv"
-AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + \
-                          SampleNumber[SampleNumberIndex] + '\\' + "accelerometer.csv"
+# KinectDataSource = MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[
+#     SampleNumberIndex] + '\\' + "KinectHandsData.csv"
+KinectDataSource = MainSourceFolder + MainSubfolder + '\\' + "KinectHandsData.csv"
+AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + "accelerometer.csv"
 
 print('Processing Data from folder:')
-print(
-    MainSourceFolder + MainSubfolder + '\\' + DataCategory[DataCategoryIndex] + '\\' + SampleNumber[SampleNumberIndex])
+print(MainSourceFolder + MainSubfolder + '\\')
+
 ###################################################################
 ######## Import Data from CSV to String Arrays    #################
 ###################################################################
-# Open FIles
+# Open Files
 KinectData = csv.reader(open(KinectDataSource), delimiter=",")
 AccelerometerData = csv.reader(open(AccelerometerDataSource), delimiter=",")
 
@@ -275,10 +275,13 @@ for item in valuesAcc:
 
 
 # check if file already exists
-IsFileFound = os.path.isfile(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted.csv")
+IsFileFound = os.path.isfile(
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted.csv")
 
 # write to CSV file
-f = open(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted.csv", 'a', newline='')
+f = open(
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted.csv",
+    'a', newline='')
 writer = csv.writer(f)
 # if file was just created, Add header
 if not IsFileFound:
@@ -286,7 +289,3 @@ if not IsFileFound:
 
 writer.writerow(values)
 f.close()
-
-###################################################################
-###################################################################
-###################################################################
