@@ -2,6 +2,7 @@ import csv
 import os
 
 import scipy.signal
+from matplotlib import pyplot as plt
 
 import Calculations as CLC
 
@@ -25,12 +26,10 @@ SampleNumberIndex = 0
 KinectDataSource = MainSourceFolder + MainSubfolder + '\\' + "KinectHandsData.csv"
 AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + "accelerometer.csv"
 
-print('Processing Data from folder:')
-print(MainSourceFolder + MainSubfolder + '\\')
+print('Processing Data From Folder: ') + print(MainSourceFolder + MainSubfolder + '\\')
 
-###################################################################
-######## Import Data from CSV to String Arrays    #################
-###################################################################
+###### Import Data from CSV to String Arrays ######
+
 # Open Files
 KinectData = csv.reader(open(KinectDataSource), delimiter=",")
 AccelerometerData = csv.reader(open(AccelerometerDataSource), delimiter=",")
@@ -75,9 +74,7 @@ for Column in AccelerometerData:
     column1.append(Column[2])
     column1.append(Column[3])
 
-###################################################################
-#########     Convert String Arrays to Double   ###################
-###################################################################
+#########   Convert String Arrays to Double  #########
 
 TimeStamp = CLC.ConvertStrArrayToDouble(column1)
 # print(column2)
@@ -104,15 +101,13 @@ AccX = CLC.ConvertStrArrayToDouble(column1)
 AccY = CLC.ConvertStrArrayToDouble(column1)
 AccZ = CLC.ConvertStrArrayToDouble(column1)
 
-###################################################################
 ###############   Signals pre-processing   ########################
-###################################################################
 
-# plt.title('Acceleration in Z-axis Preprocessing')
-# plt.xlabel('Frames')
-# plt.ylabel('Acceleration')
-# plt.plot(AccX)
-# plt.show()
+plt.title('Acceleration in Z-axis Preprocessing')
+plt.xlabel('Frames')
+plt.ylabel('Acceleration')
+plt.plot(AccX)
+plt.show()
 
 CLC.RemoveOutOfRange(RHX)
 CLC.RemoveOutOfRange(RHY)
@@ -158,17 +153,14 @@ AccX = scipy.signal.medfilt(AccX, MedianFilterWindow)
 AccY = scipy.signal.medfilt(AccY, MedianFilterWindow)
 AccZ = scipy.signal.medfilt(AccZ, MedianFilterWindow)
 
-# plt.title('Acceleration in Z-axis Postprocessing')
-# plt.xlabel('Frames')
-# plt.ylabel('Acceleration')
-# # print(RHX)
-# plt.plot(AccX)
-# plt.show()
+plt.title('Acceleration in Z-axis Postprocessing')
+plt.xlabel('Frames')
+plt.ylabel('Acceleration')
+# print(RHX)
+plt.plot(AccX)
+plt.show()
 
-
-###################################################################
 ###################   Features Extraction   #######################
-###################################################################
 
 ROMRHX = CLC.CalcROM(RHX)
 MeanValueRHX = CLC.CalculateMeanValue(RHX)
@@ -274,16 +266,17 @@ for item in valuesAcc:
 # values.append(ScoreOfMotion)
 
 
-# check if file already exists
+# Check if file already exists!
 IsFileFound = os.path.isfile(
     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted.csv")
 
-# write to CSV file
+# Write into CSV File
 f = open(
     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted.csv",
     'a', newline='')
 writer = csv.writer(f)
-# if file was just created, Add header
+
+# If file was just created, Add header
 if not IsFileFound:
     writer.writerow(header)
 
