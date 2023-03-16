@@ -3,9 +3,10 @@ import csv
 from numpy import genfromtxt
 from sklearn.ensemble import IsolationForest
 
-TrainData = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\ResampledData.csv", skip_header=1,
+TrainData = genfromtxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\ResampledData.csv",
+                       skip_header=1,
                        delimiter=',')
-TestData = genfromtxt(r"D:\Work\Masters\Thesis\Third trial\DataPreProcessing\FeaturesExtracted_TestData.csv",
+TestData = genfromtxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted_TestData.csv",
                       skip_header=1, delimiter=',')
 # print(TrainData)
 
