@@ -10,7 +10,7 @@ import Calculations as CLC
 ########### Determine Which folder to get data from  ##############
 ###################################################################
 # Source Folder to import Data from
-MainSourceFolder = r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataCollected\\"
+MainSourceFolder = r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataCollected" + '\\'
 MainSubfolder = "First"
 DataCategory = ["Fully", "Partially", "No movement"]
 SampleNumber = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven",
@@ -26,7 +26,7 @@ SampleNumberIndex = 0
 KinectDataSource = MainSourceFolder + MainSubfolder + '\\' + "KinectHandsData.csv"
 AccelerometerDataSource = MainSourceFolder + MainSubfolder + '\\' + "accelerometer.csv"
 
-print('Processing Data From Folder: ') + print(MainSourceFolder + MainSubfolder + '\\')
+print('Processing Data From Folder: ' + MainSourceFolder + MainSubfolder + '\\')
 
 ###### Import Data from CSV to String Arrays ######
 
@@ -275,7 +275,7 @@ f = open(
     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted.csv",
     'a', newline='')
 writer = csv.writer(f)
-
+print("=======Pre-Processed Data Are Ready!=======")
 # If file was just created, Add header
 if not IsFileFound:
     writer.writerow(header)
