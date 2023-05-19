@@ -7,17 +7,17 @@ from sklearn.tree import DecisionTreeRegressor
 
 # Load the training data and the test data
 data = pd.read_csv(
-    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted.csv")
-fmaScores = pd.read_csv(
-    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\Results.csv")
-# print("=======THE TRAINED DATA FOR THE Decision TREE ALGORITHM=======" + trainData)
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted.csv")
+fma_scores = pd.read_csv(
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Results.csv")
+# print("======= THE TRAINED DATA FOR THE Decision TREE ALGORITHM =======" + trainData)
 
-# Preprocess the data
+# Pre-Processed the data
 X = data.dropna(axis=1)
-print("the X data includes the kinematic measures for each patient in the preprocessed dataset")
+print("[Input] The X data includes the kinematic measures for each patient in the preprocessed dataset")
 print(X)
-y = data['FMAScore']  # fix  Y value issue it should be the targeted value
-print("The corresponding Fugl-Meyer scores for each patient in the preprocessed dataset")
+y = data['FMAScore']  # fix Y value issue it should be the targeted value
+print("[Output] The corresponding Fugl-Meyer scores for each patient in the preprocessed dataset")
 print(y)
 
 # Split the data into training and test sets

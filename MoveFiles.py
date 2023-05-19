@@ -1,23 +1,24 @@
 import os
 import shutil
 
-SourcePath = r"H:\zizo-thesis\upper-limb-motor-functions-data-collection\KinectProject\\"
-DestinationPath = r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataCollected\\"
+src_path = r"H:\zizo-thesis\upper-limb-motor-functions-data-collection\KinectProject\\"
+destination_path = r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataCollected\\"
 
-FilesNames = ["accelerometer.csv", "emg.csv", "gyro.csv", "KinectHandsData.csv", "orientation.csv",
-              "orientationEuler.csv"]
-FolderNames = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven",
-               "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty",
-               "Twentyone", "TwentyTwo", "TwentyThree"]
+workbook_sheets = ["accelerometer.csv", "emg.csv", "gyro.csv", "KinectHandsData.csv", "orientation.csv",
+                   "orientationEuler.csv"]
+folders_order = ["first", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eight", "Nine", "Ten", "Eleven",
+                 "Tweleve", "Thirtheen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen",
+                 "Twenty",
+                 "Twentyone", "TwentyTwo", "TwentyThree"]
 
 # Determine which folder will be files copied in and set "DestinationPath"
-for Folder in FolderNames:
-    if os.path.exists(DestinationPath + Folder + '\\' + FilesNames[0]) is False:
-        DestinationPath = DestinationPath + Folder + '\\'
+for folder in folders_order:
+    if os.path.exists(destination_path + folder + '\\' + workbook_sheets[0]) is False:
+        destination_path = destination_path + folder + '\\'
         break
 
 # Loop over files and move them
-for File in FilesNames:
-    SourceFilePath = SourcePath + File
-    DestinationFilePath = DestinationPath + File
-    shutil.move(SourceFilePath, DestinationFilePath)
+for workbook_files in workbook_sheets:
+    src_file_path = src_path + workbook_files
+    destination_file_path = destination_path + workbook_files
+    shutil.move(src_file_path, destination_file_path)
