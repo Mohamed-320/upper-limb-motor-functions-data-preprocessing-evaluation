@@ -1,9 +1,9 @@
 # Import required libraries
 
 import pandas as pd
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import DecisionTreeClassifier
 
 # Load the training data and the test data
 data = pd.read_csv(
@@ -24,21 +24,30 @@ print(y)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train the decision tree model
-model = DecisionTreeRegressor(random_state=42)
-model.fit(X_train, y_train)
+classifier = DecisionTreeClassifier(random_state=42)
+classifier.fit(X_train, y_train)
 
 # Make predictions on the test set
-y_pred = model.predict(X_test)
+y_pred = classifier.predict(X_test)
 print(y_pred)
 
 # Evaluate the model's performance
-mse = mean_squared_error(y_test, y_pred)
-print('Mean Squared Error:', mse)
+accuracy = accuracy_score(y_test, y_pred)
+print('Accuracy:', accuracy)
+
+# Method to calculate the Upper Extremity Score for Fugl-Meyer Assessment
+# def calculate_upper_extremity_score(dataset):
+#     upper_extremity_score = dataset['UpperExtremityScore'].sum()
+#     return upper_extremity_score
+#
+# # Assuming you have a dataset 'fma_dataset' containing FMA parameters
+# upper_extremity_score = calculate_upper_extremity_score(X)
+# print("Upper Extremity Score:", upper_extremity_score)
 
 # Visualize the decision tree
 from sklearn.tree import plot_tree
 import matplotlib.pyplot as plt
 
 plt.figure(figsize=(20, 10))
-plot_tree(model, feature_names=X.columns, filled=True, rounded=True)
+plot_tree(classifier, feature_names=X.columns, filled=True, rounded=True)
 plt.show()
