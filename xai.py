@@ -5,10 +5,10 @@ from sklearn.svm import OneClassSVM
 
 # Load Fugue Meyer dataset
 TrainData = genfromtxt(
-    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted.csv",
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted.csv",
     skip_header=1, delimiter=',')
 TestData = genfromtxt(
-    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\TestData\FirstTrialFeaturesTestData.csv",
+    r"/datapreprocessing/testdata\FirstTrialFeaturesTestData.csv",
     skip_header=1, delimiter=',')
 X = np.loadtxt("path/to/fugue_meyer.csv", delimiter=",")
 y = np.ones(len(X))  # All instances are positive (anomalous)

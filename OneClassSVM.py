@@ -5,10 +5,10 @@ from numpy import genfromtxt, quantile, where
 from sklearn.svm import OneClassSVM
 
 TrainData = genfromtxt(
-    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted.csv",
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted.csv",
     skip_header=1, delimiter=',')
 TestData = genfromtxt(
-    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\TestData\FirstTrialFeaturesTestData.csv",
+    r"/datapreprocessing/testdata\FirstTrialFeaturesTestData.csv",
     skip_header=1, delimiter=',')
 print(TrainData)
 
@@ -35,7 +35,8 @@ for item in scores:
     print("\n Sample", i, "Score is ", item, end=" ")
     i = i + 1
 
-f = open(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\Results.csv",'a', newline='')
+f = open(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Results.csv", 'a',
+         newline='')
 writer = csv.writer(f)
 # writer.writerow(header)
 writer.writerow(scores)
@@ -53,7 +54,6 @@ for item in scores:
         print("No Movement Happened")
 
 print("\nThe prediction scores are:\n", prediction)
-
 
 j = 0
 print("\nOutlier samples are:")

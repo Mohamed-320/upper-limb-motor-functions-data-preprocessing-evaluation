@@ -3,58 +3,49 @@ from imblearn.over_sampling import SMOTE
 from numpy import genfromtxt, savetxt
 from sklearn.datasets import make_classification
 
-####################################################################################################
-################################## configuration Defines  ##########################################
-####################################################################################################
-NumberOfSamplesToBeGenerated = 100
+# Configuration Defines
+number_of_samples_to_be_generated = 100
 
-####################################################################################################
-############################# Import Data To be resampled ##########################################
-####################################################################################################
-TrainData = genfromtxt(
+# Import Data To be resampled
+train_data = genfromtxt(
     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted_TrainData.csv",
     skip_header=1, delimiter=',')
-X, y = make_classification(n_samples=NumberOfSamplesToBeGenerated, n_features=25, n_redundant=0, n_clusters_per_class=1,
+X, y = make_classification(n_samples=number_of_samples_to_be_generated, n_features=25, n_redundant=0,
+                           n_clusters_per_class=1,
                            weights=[1], flip_y=0, random_state=1, shuffle=False, scale=0)
 
 # Concatenate Train data and randomly generated data
-ConcatenatedData = numpy.concatenate([TrainData, X])
+concatenated_data = numpy.concatenate([train_data, X])
 
 # Count Train Data Samples
-NumberOfTrainDataSamples = 0
-for item in TrainData:
-    NumberOfTrainDataSamples = NumberOfTrainDataSamples + 1
-print('\nNumber of items in TrainData is:', NumberOfTrainDataSamples)
+number_of_train_data_samples = 0
+for item in train_data:
+    number_of_train_data_samples = number_of_train_data_samples + 1
+print('\nNumber of items in TrainData is:', number_of_train_data_samples)
 
 # Create Data Labels
-NumberOfZeros = NumberOfSamplesToBeGenerated - NumberOfTrainDataSamples
-DataLabels = [1] * NumberOfTrainDataSamples + [0] * NumberOfSamplesToBeGenerated
+number_of_zeroes = number_of_samples_to_be_generated - number_of_train_data_samples
+data_labels = [1] * number_of_train_data_samples + [0] * number_of_samples_to_be_generated
 
-####################################################################################################
-############################ Count Percentage of 1s in the Data Labels #############################
-####################################################################################################
+# Count Percentage of 1s in the Data Labels
 # j = 0
-# NumberOfOnes = 0
+# number_of_ones = 0
 # for item in y:
 #     j = j + 1
 #     if item == 1:
-#         NumberOfOnes = NumberOfOnes + 1
-# print ('\nThe number of ones in the Whole Sample is  ' ,(NumberOfOnes/j) * 100, '%')
+#         number_of_ones = number_of_ones + 1
+# print ('\nThe number of ones in the Whole Sample is  ', (number_of_ones / j) * 100, '%')
 
 
-####################################################################################################
-#################################### Smoting The Data ##############################################
-####################################################################################################
+# Smoting The Data
 sm = SMOTE()
-X_resampled, y_resampled = sm.fit_resample(ConcatenatedData, DataLabels)
+X_resampled, y_resampled = sm.fit_resample(concatenated_data, data_labels)
 
-####################################################################################################
-######################## Delete the other class created to smote ###################################
-####################################################################################################
-DeleteCounter = 0
-for DeleteCounter in range(NumberOfSamplesToBeGenerated):
-    X_resampled = numpy.delete(X_resampled, NumberOfTrainDataSamples, 0)
-    DeleteCounter = DeleteCounter + 1
+# Delete the other class created to smote
+delete_counter = 0
+for delete_counter in range(number_of_samples_to_be_generated):
+    X_resampled = numpy.delete(X_resampled, number_of_train_data_samples, 0)
+    delete_counter = delete_counter + 1
 
 # Count Train Data Samples
 i = 0
@@ -63,8 +54,7 @@ for item in X_resampled:
 print('\nNumber of items in Resampled Data is:', i)
 
 # print(y)
-savetxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\Resampled.csv",
+savetxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Resampled.csv",
         X_resampled, delimiter=",")
-savetxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\Concatenated.csv",
-        ConcatenatedData, delimiter=",")
-# print(y)
+savetxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Concatenated.csv",
+        concatenated_data, delimiter=",")

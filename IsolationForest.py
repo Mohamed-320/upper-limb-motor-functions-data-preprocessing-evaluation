@@ -3,19 +3,20 @@ import csv
 from numpy import genfromtxt
 from sklearn.ensemble import IsolationForest
 
-TrainData = genfromtxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\ResampledData.csv",
-                       skip_header=1,
-                       delimiter=',')
-TestData = genfromtxt(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\DataPreProcessing\FeaturesExtracted_TestData.csv",
-                      skip_header=1, delimiter=',')
-# print(TrainData)
+train_data = genfromtxt(
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted.csv",
+    skip_header=1, delimiter=',')
+test_data = genfromtxt(
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted_TestData.csv",
+    skip_header=1, delimiter=',')
+# print(train_data)
 
-Model = IsolationForest(random_state=0)
-print(Model, "\n")
-Model.fit(TrainData)
+model = IsolationForest(random_state=0)
+print(model, "\n")
+model.fit(train_data)
 
-pred = Model.predict(TestData)
-scores = Model.score_samples(TestData)
+pred = model.predict(test_data)
+scores = model.score_samples(test_data)
 
 # x= [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 #
