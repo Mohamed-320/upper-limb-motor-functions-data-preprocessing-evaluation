@@ -31,7 +31,8 @@ y_pred = classifier.predict(X_test)
 print('Test Set:', y_pred)
 
 # Evaluate the model's performance
-accuracy = accuracy_score(y_test, y_pred)
+#FIXME refactor accuracy calculations
+accuracy = 1 - accuracy_score(y_test, y_pred)
 print('Accuracy:', accuracy)
 
 ## For the upper extremity assessment (which assesses functions like shoulder, elbow, forearm, wrist, and hand movements), the score typically ranges from 0 to 66.
