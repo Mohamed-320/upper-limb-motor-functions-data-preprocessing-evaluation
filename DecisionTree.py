@@ -1,5 +1,4 @@
 # Import required libraries
-
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
@@ -8,8 +7,8 @@ from sklearn.tree import DecisionTreeClassifier
 # Load the training data and the test data
 data = pd.read_csv(
     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted.csv")
-fma_scores = pd.read_csv(
-    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Results.csv")
+# fma_scores = pd.read_csv(
+#     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Results.csv")
 # print("======= THE TRAINED DATA FOR THE Decision TREE ALGORITHM =======" + trainData)
 
 # Pre-Processed the data
@@ -29,11 +28,13 @@ classifier.fit(X_train, y_train)
 
 # Make predictions on the test set
 y_pred = classifier.predict(X_test)
-print(y_pred)
+print('Test Set:', y_pred)
 
 # Evaluate the model's performance
 accuracy = accuracy_score(y_test, y_pred)
 print('Accuracy:', accuracy)
+
+## For the upper extremity assessment (which assesses functions like shoulder, elbow, forearm, wrist, and hand movements), the score typically ranges from 0 to 66.
 
 # Method to calculate the Upper Extremity Score for Fugl-Meyer Assessment
 # def calculate_upper_extremity_score(dataset):
