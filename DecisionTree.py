@@ -1,5 +1,6 @@
 # Import required libraries
 import pandas as pd
+from anchor import anchor_tabular
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -31,9 +32,9 @@ y_pred = classifier.predict(X_test)
 print('Test Set:', y_pred)
 
 # Evaluate the model's performance
-#FIXME refactor accuracy calculations
+# FIXME refactor accuracy calculations
 accuracy = 1 - accuracy_score(y_test, y_pred)
-print('Accuracy:', accuracy)
+print('Decision Tree Model Accuracy:', accuracy)
 
 ## For the upper extremity assessment (which assesses functions like shoulder, elbow, forearm, wrist, and hand movements), the score typically ranges from 0 to 66.
 
@@ -53,3 +54,24 @@ import matplotlib.pyplot as plt
 plt.figure(figsize=(20, 10))
 plot_tree(classifier, feature_names=X.columns, filled=True, rounded=True)
 plt.show()
+
+# Define feature names (optional)
+feature_names = ['Age', 'Income', 'Credit Score', 'Existing Debt']
+
+# Explain individual predictions using the anchor_tabular method
+explainer = anchor_tabular.AnchorTabularExplainer(
+     X_train,X, classifier.predict,
+    categorical_names=None  # Replace with categorical feature names if applicable
+)
+
+# Sample instance for explanation (replace with your data)
+instance = [28, 45000, 700, 1800]
+
+# Get the anchor rule for the selected instance
+explanation = explainer.explain_instance(X_train, classifier.predict, threshold=0.95)
+
+# Print the anchor rule
+print("Anchor Rule for Explanation:")
+print(' - '.join(explanation.names()))
+print('Precision:', explanation.precision())
+print('Coverage:', explanation.coverage())
