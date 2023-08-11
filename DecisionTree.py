@@ -1,4 +1,6 @@
 # Import required libraries
+import csv
+
 import pandas as pd
 from anchor import anchor_tabular
 from sklearn.metrics import accuracy_score
@@ -16,8 +18,8 @@ data = pd.read_csv(
 X = data.dropna(axis=1)
 print("[Input] The X data includes the kinematic measures for each patient in the preprocessed dataset")
 print(X)
-y = data['FMAScore']  # fix Y value issue it should be the targeted value
-print("[Output] The corresponding Fugl-Meyer scores for each patient in the preprocessed dataset")
+y = data['Score']  # fix Y value issue it should be the targeted value
+print("[Output] The corresponding scores for each patient in the preprocessed dataset")
 print(y)
 
 # Split the data into training and test sets
@@ -34,18 +36,32 @@ print('Test Set:', y_pred)
 # Evaluate the model's performance
 # FIXME refactor accuracy calculations
 accuracy = 1 - accuracy_score(y_test, y_pred)
-print('Decision Tree Model Accuracy:', accuracy)
+print('Decision Tree Model Accuracy: ', accuracy)
 
 ## For the upper extremity assessment (which assesses functions like shoulder, elbow, forearm, wrist, and hand movements), the score typically ranges from 0 to 66.
 
-# Method to calculate the Upper Extremity Score for Fugl-Meyer Assessment
-# def calculate_upper_extremity_score(dataset):
-#     upper_extremity_score = dataset['UpperExtremityScore'].sum()
-#     return upper_extremity_score
-#
-# # Assuming you have a dataset 'fma_dataset' containing FMA parameters
-# upper_extremity_score = calculate_upper_extremity_score(X)
-# print("Upper Extremity Score:", upper_extremity_score)
+i = 1
+for item in y_pred:
+    print("\n Sample", i, "Score is ", item, end=" ")
+    i = i + 1
+
+results = open(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Results.csv",
+               'a',
+               newline='')
+writer = csv.writer(results)
+writer.writerow(y_pred)
+results.close()
+
+j = 1
+for item in y_pred:
+    print("\n Sample Number", j)
+    j = j + 1
+    if item > 3:
+        print("Movement Fully Done")
+    elif item > 0 and item < 3:
+        print("Movement Partially Done")
+    else:
+        print("No Movement")
 
 # Visualize the decision tree
 from sklearn.tree import plot_tree
@@ -55,23 +71,17 @@ plt.figure(figsize=(20, 10))
 plot_tree(classifier, feature_names=X.columns, filled=True, rounded=True)
 plt.show()
 
-# Define feature names (optional)
-feature_names = ['Age', 'Income', 'Credit Score', 'Existing Debt']
-
+# Define feature names
 # Explain individual predictions using the anchor_tabular method
 explainer = anchor_tabular.AnchorTabularExplainer(
-     X_train,X, classifier.predict,
+    X, X_train, classifier.predict,
     categorical_names=None  # Replace with categorical feature names if applicable
 )
-
-# Sample instance for explanation (replace with your data)
-instance = [28, 45000, 700, 1800]
 
 # Get the anchor rule for the selected instance
 explanation = explainer.explain_instance(X_train, classifier.predict, threshold=0.95)
 
 # Print the anchor rule
-print("Anchor Rule for Explanation:")
-print(' - '.join(explanation.names()))
-print('Precision:', explanation.precision())
-print('Coverage:', explanation.coverage())
+print('Anchor Rule for Explanation: %s' % (' AND '.join(explanation.names())))
+print('Precision: %.2f' % explanation.precision())
+print('Coverage: %.2f' % explanation.coverage())
