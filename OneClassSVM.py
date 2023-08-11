@@ -8,7 +8,7 @@ TrainData = genfromtxt(
     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted.csv",
     skip_header=1, delimiter=',')
 TestData = genfromtxt(
-    r"/datapreprocessing/testdata\FirstTrialFeaturesTestData.csv",
+    r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\testdata\FirstTrialFeaturesTestData.csv",
     skip_header=1, delimiter=',')
 print(TrainData)
 
