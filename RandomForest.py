@@ -54,12 +54,25 @@ j = 1
 for item in scores:
     print("\n Sample Number", j)
     j = j + 1
-    if item > 3:
-        print("Movement Fully Done")
-    elif item > 0 and item < 3:
-        print("Movement Partially Done")
-    else:
-        print("No Movement")
+
+
+    def score(item):
+        match item:
+            case 1:
+                return "The patient does slightly attempt with the UE being tested!"
+            case 2:
+                return "The patient does attempt, but requires the assistance for minor re-adjustments or change of position!"
+            case 3:
+                return "The patient does attempt slowly performance or with effort!"
+            case 4:
+                return "The patient does attempt; movement is similar to the non-affected side but slightly slower!"
+            case 5:
+                return "The patient does attempt, and movement appears to be normal!"
+            case default:
+                return "No movement done!"
+
+
+    print(score(item))
 
 # Convert predicted_labels to 1D array for anchor usage
 predicted_labels = np.squeeze(scores)

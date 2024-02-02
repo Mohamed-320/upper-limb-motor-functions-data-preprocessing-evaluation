@@ -2,7 +2,6 @@
 import csv
 
 import pandas as pd
-from anchor import anchor_tabular
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -10,8 +9,6 @@ from sklearn.tree import DecisionTreeClassifier
 # Load the training data and the test data
 data = pd.read_csv(
     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted.csv")
-# fma_scores = pd.read_csv(
-#     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Results.csv")
 # print("======= THE TRAINED DATA FOR THE Decision TREE ALGORITHM =======" + trainData)
 
 # Pre-Processed the data
@@ -34,12 +31,10 @@ y_pred = classifier.predict(X_test)
 print('Test Set:', y_pred)
 
 # Evaluate the model's performance
-# FIXME refactor accuracy calculations
-accuracy = 1 - accuracy_score(y_test, y_pred)
+accuracy = accuracy_score(y_test, y_pred)
 print('Decision Tree Model Accuracy: ', accuracy)
 
 ## For the upper extremity assessment (which assesses functions like shoulder, elbow, forearm, wrist, and hand movements), the score typically ranges from 0 to 66.
-
 i = 1
 for item in y_pred:
     print("\n Sample", i, "Score is ", item, end=" ")
@@ -56,12 +51,23 @@ j = 1
 for item in y_pred:
     print("\n Sample Number", j)
     j = j + 1
-    if item > 3:
-        print("Movement Fully Done")
-    elif item > 0 and item < 3:
-        print("Movement Partially Done")
-    else:
-        print("No Movement")
+    def score(item):
+        match item:
+            case 1:
+                return "The patient does slightly attempt with the UE being tested!"
+            case 2:
+                return "The patient does attempt, but requires the assistance for minor re-adjustments or change of position!"
+            case 3:
+                return "The patient does attempt slowly performance or with effort!"
+            case 4:
+                return "The patient does attempt; movement is similar to the non-affected side but slightly slower!"
+            case 5:
+                return "The patient does attempt, and movement appears to be normal!"
+            case default:
+                return "No movement done!"
+
+
+    print(score(item))
 
 # Visualize the decision tree
 from sklearn.tree import plot_tree
