@@ -27,16 +27,6 @@ print('\nNumber of items in TrainData is:', number_of_train_data_samples)
 number_of_zeroes = number_of_samples_to_be_generated - number_of_train_data_samples
 data_labels = [1] * number_of_train_data_samples + [0] * number_of_samples_to_be_generated
 
-# Count Percentage of 1s in the Data Labels
-# j = 0
-# number_of_ones = 0
-# for item in y:
-#     j = j + 1
-#     if item == 1:
-#         number_of_ones = number_of_ones + 1
-# print ('\nThe number of ones in the Whole Sample is  ', (number_of_ones / j) * 100, '%')
-
-
 # Smoting The Data
 sm = SMOTE()
 X_resampled, y_resampled = sm.fit_resample(concatenated_data, data_labels)

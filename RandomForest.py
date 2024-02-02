@@ -1,16 +1,17 @@
-# Import required libraries
+# Import necessary libraries
 import csv
 
+import numpy as np
 import pandas as pd
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
+from anchor import anchor_tabular
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import cross_val_score
 
-# Load the training data and the test data
+# Loading the dataset
 data = pd.read_csv(
     r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\FeaturesExtracted.csv")
-# print("======= THE TRAINED DATA FOR THE Decision TREE ALGORITHM =======" + trainData)
 
+# Assuming your dataset has columns for WMFT features (X) and motor function labels (y)
 # Pre-Processed the data
 X = data.dropna(axis=1)
 print("[Input] The X data includes the kinematic measures for each patient in the preprocessed dataset")
@@ -18,39 +19,43 @@ print(X)
 y = data['Score']  # fix Y value issue it should be the targeted value
 print("[Output] The corresponding scores for each patient in the preprocessed dataset")
 print(y)
+# X = data.drop('motor_function_label', axis=1)
+# y = data['motor_function_label']
 
-# Split the data into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+# Create a Random Forest classifier
+clf = RandomForestClassifier(n_estimators=100, random_state=42)
 
-# Train the decision tree model
-classifier = DecisionTreeClassifier(random_state=42)
-classifier.fit(X_train, y_train)
+# Perform k-fold cross-validation (replace 'k' with the desired number of folds)
+k = 5
+scores = cross_val_score(clf, X, y, cv=k)
 
-# Make predictions on the test set
-y_pred = classifier.predict(X_test)
-print('Test Set:', y_pred)
+# Print the cross-validation scores
+for fold, score in enumerate(scores, start=1):
+    print(f"Fold {fold} Accuracy: {1 - score:.2f}")
 
-# Evaluate the model's performance
-accuracy = accuracy_score(y_test, y_pred)
-print('Decision Tree Model Accuracy: ', accuracy)
+# Calculate and print the average accuracy across all folds
+average_accuracy = np.mean(1 - scores)
+print(f"Average Accuracy: {average_accuracy:.2f}")
 
 ## For the upper extremity assessment (which assesses functions like shoulder, elbow, forearm, wrist, and hand movements), the score typically ranges from 0 to 66.
+
 i = 1
-for item in y_pred:
+for item in y:
     print("\n Sample", i, "Score is ", item, end=" ")
     i = i + 1
 
 results = open(r"H:\zizo-thesis\upper-limb-motor-functions-data-preprocessing-evaluation\datapreprocessing\Results.csv",
-               'a',
-               newline='')
+               'a', newline='')
 writer = csv.writer(results)
-writer.writerow(y_pred)
+writer.writerow(scores)
 results.close()
 
 j = 1
-for item in y_pred:
+for item in scores:
     print("\n Sample Number", j)
     j = j + 1
+
+
     def score(item):
         match item:
             case 1:
@@ -69,25 +74,29 @@ for item in y_pred:
 
     print(score(item))
 
-# Visualize the decision tree
-from sklearn.tree import plot_tree
-import matplotlib.pyplot as plt
+# Convert predicted_labels to 1D array for anchor usage
+predicted_labels = np.squeeze(scores)
 
-plt.figure(figsize=(20, 10))
-plot_tree(classifier, feature_names=X.columns, filled=True, rounded=True)
-plt.show()
 
-# Define feature names
-# Explain individual predictions using the anchor_tabular method
+# Create a function that returns True if the predicted label matches the actual label
+def predict_fn(x):
+    return scores[x]
+
+
+# Initialize the Anchor explainer
 explainer = anchor_tabular.AnchorTabularExplainer(
-    X, X_train, classifier.predict,
-    categorical_names=None  # Replace with categorical feature names if applicable
+    X,  # Training data
+    data.columns.tolist(),  # Feature names
+    predict_fn,  # Prediction function
+    categorical_names=None  # Categorical feature names, if applicable
 )
 
-# Get the anchor rule for the selected instance
-explanation = explainer.explain_instance(X_train, classifier.predict, threshold=0.95)
+# Choose a data point to explain (replace 'index' with the desired index)
+index = 0
+explanation = explainer.explain_instance(X.iloc[index].values)
 
-# Print the anchor rule
+# Print the anchor rule explanation
+print('Explanation for prediction:')
 print('Anchor Rule for Explanation: %s' % (' AND '.join(explanation.names())))
 print('Precision: %.2f' % explanation.precision())
 print('Coverage: %.2f' % explanation.coverage())
